@@ -5,7 +5,7 @@
 
 * Integration with Microsoft's [Pyright language server](https://microsoft.github.io/pyright/#/)
 * Code formatting using [Black](https://black.readthedocs.io/en/stable/)
-* Linting with [Ruff](https://docs.astral.sh/ruff/)
+* Linting (and import organization) with [Ruff](https://docs.astral.sh/ruff/)
 * A Virtual Environment task for running a script or Python module as though the project's virtual environment is active
 * A tree-sitter based syntax for `requirements.txt` files, based off of [tree-sitter-requirements](https://github.com/ObserverOfTime/tree-sitter-requirements)
 * A sidebar showing all packages installed in your configured Python environment, along with any outdated versions, and optionally any known vulnerabilities using [pip-audit](https://github.com/pypa/pip-audit)
@@ -17,7 +17,7 @@
 
 If you use [Homebrew](https://brew.sh), the easiest way to get started is:
 
-`brew install pyright ruff black`
+`brew install pyright ruff black pip-audit`
 
 This extension will try to find tools installed on your `PATH`, so installing into your virtual environment or another location should work, as well.
 
