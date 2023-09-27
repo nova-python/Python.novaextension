@@ -5,7 +5,8 @@ class Pip {
         this.config = config;
     }
 
-    upgrade(packages) {
+    install(packages, upgrade = false) {
+        const extraArgs = upgrade ? ["--upgrade"] : [];
         return utils.run(
             this.config.get("pythonPath"),
             "-m",
@@ -14,7 +15,23 @@ class Pip {
             "--no-input",
             "--progress-bar",
             "off",
-            "--upgrade",
+            ...extraArgs,
+            ...packages
+        );
+    }
+
+    upgrade(packages) {
+        return this.install(packages, true);
+    }
+
+    uninstall(packages) {
+        return utils.run(
+            this.config.get("pythonPath"),
+            "-m",
+            "pip",
+            "uninstall",
+            "--no-input",
+            "--yes",
             ...packages
         );
     }

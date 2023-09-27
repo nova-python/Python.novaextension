@@ -268,6 +268,12 @@
                     "type": "path",
                     "relative": true,
                     "placeholder": "requirements.in"
+                },
+                {
+                    "key": "python.pipExclude",
+                    "title": "Exclude packages on freeze",
+                    "description": "",
+                    "type": "stringArray"
                 }
             ]
         }
@@ -328,6 +334,16 @@
                 "command": "python.upgradeAllPackages"
             },
             {
+                "title": "Install Package",
+                "paletteTitle": "Install Package (Pip)",
+                "command": "python.pipInstall"
+            },
+            {
+                "title": "Uninstall Package",
+                "paletteTitle": "Uninstall Package (Pip)",
+                "command": "python.pipUninstall"
+            },
+            {
                 "title": "Format Workspace",
                 "paletteTitle": "Format Workspace (Black)",
                 "command": "python.formatWorkspace",
@@ -365,10 +381,16 @@
                     "allowMultiple": true,
                     "headerCommands": [
                         {
-                            "title": "Upgrade All",
-                            "image": "update",
-                            "command": "python.upgradeAllPackages",
-                            "tooltip": "Upgrade all requirements"
+                            "title": "Install",
+                            "image": "__builtin.add",
+                            "command": "python.pipInstall",
+                            "tooltip": "Install package(s)"
+                        },
+                        {
+                            "title": "Refresh",
+                            "image": "reload",
+                            "command": "python.reloadPackages",
+                            "tooltip": "Refresh the list of installed packages"
                         },
                         {
                             "title": "Freeze",
@@ -377,11 +399,11 @@
                             "tooltip": "Freeze requirements"
                         },
                         {
-                            "title": "Refresh",
-                            "image": "reload",
-                            "command": "python.reloadPackages",
-                            "tooltip": "Refresh the list of installed packages"
-                        }
+                            "title": "Upgrade All",
+                            "image": "update",
+                            "command": "python.upgradeAllPackages",
+                            "tooltip": "Upgrade all requirements"
+                        },
                     ],
                     "contextCommands": [
                         {

@@ -78,11 +78,15 @@ nova.commands.register("python.reloadPackages", (workspace) => {
 nova.commands.register("python.pipFreeze", (workspace) => {
     let filename = config.get("pipRequirements", "string", "requirements.txt");
     let path = nova.path.join(nova.workspace.path, filename);
+    let exclude = new Set(config.get("pipExclude", "array") || []);
     let note = new Notification(`Freezing ${filename}`).show();
     pip.freeze()
         .then((packages) => {
+            let resolvedPackages = packages.filter(
+                (p) => !exclude.has(p.split("=")[0])
+            );
             let file = nova.fs.open(path, "w");
-            file.write(packages.join("\n"));
+            file.write(resolvedPackages.join("\n"));
             file.write("\n");
             file.close();
             note.dismiss();
@@ -90,6 +94,43 @@ nova.commands.register("python.pipFreeze", (workspace) => {
         .catch((msg) => {
             console.error(msg);
         });
+});
+
+nova.commands.register("python.pipInstall", (workspace) => {
+    workspace.showInputPalette(
+        "Install packages into your virtual environment.",
+        { placeholder: "Package names or specifiers" },
+        function (spec) {
+            if (!spec) return;
+            let packages = spec.split(" ").filter((e) => e.length > 0);
+            let note = new Notification(
+                packages.join(", "),
+                "Installing Packages"
+            ).show();
+            pip.install(packages).then(() => {
+                note.dismiss();
+                sidebar.refresh();
+            });
+        }
+    );
+});
+
+nova.commands.register("python.pipUninstall", (workspace) => {
+    workspace.showInputPalette(
+        "Un-install packages from your virtual environment.",
+        { placeholder: "Package names" },
+        function (spec) {
+            let packages = spec.split(" ").filter((e) => e.length > 0);
+            let note = new Notification(
+                packages.join(", "),
+                "Uninstalling Packages"
+            ).show();
+            pip.uninstall(packages).then(() => {
+                note.dismiss();
+                sidebar.refresh();
+            });
+        }
+    );
 });
 
 nova.commands.register("python.upgradeAllPackages", (workspace) => {

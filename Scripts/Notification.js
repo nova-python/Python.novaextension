@@ -40,7 +40,8 @@ class Notification {
     }
 
     static error(msg) {
-        return new Notification(msg).show();
+        nova.workspace.showErrorMessage(msg);
+        //return new Notification(msg).show();
     }
 }
 
