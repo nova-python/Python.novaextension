@@ -57,6 +57,7 @@
         {
             "type": "section",
             "title": "Formatter (Black)",
+            "link": "https://black.readthedocs.io/en/stable/",
             "children": [
                 {
                     "key": "python.formatterPath",
@@ -77,6 +78,7 @@
         {
             "type": "section",
             "title": "Linter (Ruff)",
+            "link": "https://docs.astral.sh/ruff/",
             "children": [
                 {
                     "key": "python.linterPath",
@@ -185,6 +187,7 @@
         {
             "type": "section",
             "title": "Formatter (Black)",
+            "link": "https://black.readthedocs.io/en/stable/",
             "children": [
                 {
                     "key": "python.formatterPath",
@@ -211,6 +214,7 @@
         {
             "type": "section",
             "title": "Linter (Ruff)",
+            "link": "https://docs.astral.sh/ruff/",
             "children": [
                 {
                     "key": "python.linterPath",
@@ -265,7 +269,8 @@
     "commands": {
         "editor": [
             {
-                "title": "Format with Black",
+                "title": "Format",
+                "paletteTitle": "Format (Black)",
                 "command": "python.formatWithBlack",
                 "shortcut": "cmd-shift-B",
                 "filters": {
@@ -273,7 +278,8 @@
                 }
             },
             {
-                "title": "Check with Ruff",
+                "title": "Check",
+                "paletteTitle": "Check (Ruff)",
                 "command": "python.checkWithRuff",
                 "shortcut": "shift-cmd-8",
                 "filters": {
@@ -281,7 +287,8 @@
                 }
             },
             {
-                "title": "Fix Ruff Violations",
+                "title": "Fix Violations",
+                "paletteTitle": "Fix Violations (Ruff)",
                 "command": "python.fixRuffViolations",
                 "shortcut": "shift-cmd-opt-8",
                 "filters": {
@@ -289,7 +296,8 @@
                 }
             },
             {
-                "title": "Organize Imports with Ruff",
+                "title": "Organize Imports",
+                "paletteTitle": "Organize Imports (Ruff)",
                 "command": "python.organizeImports",
                 "shortcut": "shift-opt-O",
                 "filters": {
@@ -303,15 +311,18 @@
                 "command": "python.restartPyright"
             },
             {
-                "title": "Pip: Freeze",
+                "title": "Freeze Requirements",
+                "paletteTitle": "Freeze Requirements (Pip)",
                 "command": "python.pipFreeze"
             },
             {
-                "title": "Pip: Upgrade All",
+                "title": "Upgrade All Requirements",
+                "paletteTitle": "Upgrade All Requirements (Pip)",
                 "command": "python.upgradeAllPackages"
             },
             {
-                "title": "Format Workspace with Black",
+                "title": "Format Workspace",
+                "paletteTitle": "Format Workspace (Black)",
                 "command": "python.formatWorkspace",
                 "shortcut": "cmd-shift-opt-B"
             }

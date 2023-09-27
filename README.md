@@ -9,7 +9,7 @@
 * A tree-sitter based syntax for `requirements.txt` files, based off of [tree-sitter-requirements](https://github.com/ObserverOfTime/tree-sitter-requirements)
 * A sidebar showing all packages installed in your configured Python environment, along with any outdated versions, and optionally any known vulnerabilities using [pip-audit](https://github.com/pypa/pip-audit)
 
-![Python Sidebar](python-sidebar.png)
+![Python Sidebar](https://github.com/nova-python/Python.novaextension/raw/main/python-sidebar.png)
 
 
 ## Requirements
