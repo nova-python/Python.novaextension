@@ -4,7 +4,14 @@
     "organization": "Dan Watson",
     "description": "Batteries-included Python support for Nova.",
     "version": "1.0",
-    "categories": ["commands", "languages", "sidebars", "formatters", "issues"],
+    "categories": [
+        "commands",
+        "languages",
+        "sidebars",
+        "formatters",
+        "issues",
+        "tasks"
+    ],
     "repository": "https://github.com/nova-python/Python.novaextension",
     "bugs": "https://github.com/nova-python/Python.novaextension/issues",
 
@@ -386,5 +393,50 @@
                 }
             ]
         }
-    ]
+    ],
+
+    "taskTemplates": {
+        "virtualenv": {
+            "name": "Virtual Environment",
+            "description": "Run scripts or Python modules in an activated virtual environment.",
+            "image": "python-nova",
+            "tasks": {
+                "run": {
+                    "resolve": "virtualenv",
+                    "data": { "type": "run" }
+                }
+            },
+            "config": [
+                {
+                    "key": "script",
+                    "title": "Script",
+                    "type": "path",
+                    "relative": true,
+                    "description": "The path to a script to run with the virtual environment activated. This option is mutually exclusive with \"Module\". If both are specified, the script will be preferred."
+                },
+                {
+                    "key": "module",
+                    "title": "Module",
+                    "type": "string",
+                    "description": "The name of a Python module to executing using the virtual environment's Python interpreter. This option is mutually exclusive with \"Script\". If both are specified, the script will be preferred."
+                },
+                {
+                    "key": "args",
+                    "title": "Arguments",
+                    "description": "Custom arguments to pass to the target.",
+                    "type": "stringArray"
+                },
+                {
+                    "key": "workdir",
+                    "title": "Working Directory",
+                    "description": "The working directory in which to invoke the script. By default, the project folder is used.",
+                    "type": "path",
+                    "placeholder": "Project Root",
+                    "allowFiles": false,
+                    "allowFolders": true,
+                    "relative": true
+                }
+            ]
+        }
+    }
 }

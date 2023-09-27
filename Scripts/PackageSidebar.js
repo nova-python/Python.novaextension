@@ -7,17 +7,17 @@ class PackageDataProvider {
     }
 
     reload() {
-        return new Promise((resolve, reject) => {
-            Promise.all([this.pip.list(), this.pip.outdated(), this.pip.audit()]).then(
-                ([packages, outdated, vulns]) => {
-                    for (const i in packages) {
-                        packages[i].latest_version = outdated[packages[i].name];
-                        packages[i].vulnerabilities = vulns[packages[i].name];
-                    }
-                    this.packages = packages;
-                    resolve(packages);
-                }
-            );
+        return Promise.all([
+            this.pip.list(),
+            this.pip.outdated(),
+            this.pip.audit(),
+        ]).then(([packages, outdated, vulns]) => {
+            for (const i in packages) {
+                packages[i].latest_version = outdated[packages[i].name];
+                packages[i].vulnerabilities = vulns[packages[i].name];
+            }
+            this.packages = packages;
+            return packages;
         });
     }
 
@@ -82,10 +82,16 @@ class PackageSidebar {
     refresh() {
         let note = new Notification("Refreshing package list...").show();
         let tree = this.tree;
-        this.data.reload().then((packages) => {
-            tree.reload();
-            note.dismiss();
-        });
+        this.data.reload().then(
+            (packages) => {
+                tree.reload();
+                note.dismiss();
+            },
+            (error) => {
+                note.dismiss();
+                Notification.error(error);
+            }
+        );
     }
 
     selectedPackages() {

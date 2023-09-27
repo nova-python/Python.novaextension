@@ -5,6 +5,7 @@ const Linter = require("Linter.js");
 const Config = require("Config.js");
 const Pip = require("Pip.js");
 const PackageSidebar = require("PackageSidebar.js");
+const VirtualEnvTaskAssistant = require("VirtualEnvTaskAssistant.js");
 const utils = require("utils.js");
 
 // Read from workspace, extension, and .default named configs.
@@ -127,3 +128,9 @@ nova.commands.register("python.fixRuffViolations", (editor) => linter.fix(editor
 nova.commands.register("python.organizeImports", (editor) =>
     linter.fix(editor, "I001")
 );
+
+// Task assistants
+nova.assistants.registerTaskAssistant(new VirtualEnvTaskAssistant(config), {
+    identifier: "virtualenv",
+    name: "Virtualenv",
+});

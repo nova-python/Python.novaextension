@@ -65,9 +65,35 @@ exports.checkEnv = function (venvDir) {
     });
 };
 
+exports.activatedEnv = function (base = {}) {
+    const pythonPath = nova.workspace.config.get("python.pythonPath", "string");
+    if (!pythonPath) {
+        return base;
+    }
+    const bin = nova.path.dirname(pythonPath);
+    return {
+        ...base,
+        VIRTUAL_ENV: nova.path.dirname(bin),
+        PATH: bin + ":" + nova.environment.PATH,
+    };
+};
+
 exports.which = function (cmd) {
-    // TODO: search virtualenv bin
-    return exports.run("/usr/bin/which", cmd).then((result) => result.stdout[0].trim());
+    return exports
+        .run(
+            "/usr/bin/which",
+            {
+                env: exports.activatedEnv(),
+            },
+            cmd
+        )
+        .then((result) => {
+            if (result.success) {
+                return result.stdout.join("").trim();
+            } else {
+                return Promise.reject(`${cmd} not found`);
+            }
+        });
 };
 
 var pathCache = {};
@@ -80,7 +106,7 @@ exports.resolvePath = function (cmd, configPath) {
         return Promise.resolve(pathCache[cmd]);
     }
     return exports.which(cmd).then((path) => {
-        console.info(`Caching path for ${cmd}: ${path}`)
+        console.info(`Caching path for ${cmd}: ${path}`);
         pathCache[cmd] = path;
         return path;
     });

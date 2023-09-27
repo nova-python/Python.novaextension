@@ -38,6 +38,10 @@ class Notification {
     dismiss() {
         nova.notifications.cancel(this.id);
     }
+
+    static error(msg) {
+        return new Notification(msg).show();
+    }
 }
 
 module.exports = Notification;

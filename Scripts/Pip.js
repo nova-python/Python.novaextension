@@ -27,14 +27,7 @@ class Pip {
 
     list() {
         return utils
-            .run(
-                this.config.get("pythonPath"),
-                "-m",
-                "pip",
-                "list",
-                "--format",
-                "json"
-            )
+            .run(this.config.get("pythonPath"), "-m", "pip", "list", "--format", "json")
             .then((result) => JSON.parse(result.stdout.join("")));
     }
 
@@ -61,38 +54,38 @@ class Pip {
 
     audit() {
         let pythonPath = this.config.get("pythonPath");
-        let pipAuditPath = this.config.get(
-            "pipAuditPath",
-            "string",
-            "/opt/homebrew/bin/pip-audit"
+        let pipAuditPath = this.config.get("pipAuditPath", "string");
+        return utils.resolvePath("pip-audit", pipAuditPath).then(
+            (cmd) => {
+                return utils
+                    .run(
+                        cmd,
+                        {
+                            env: {
+                                PIPAPI_PYTHON_LOCATION: pythonPath,
+                            },
+                        },
+                        "--format",
+                        "json",
+                        "--progress-spinner",
+                        "off"
+                    )
+                    .then((result) => {
+                        let vulnerabilities = {};
+                        let data = JSON.parse(result.stdout.join(""));
+                        for (const p of data.dependencies) {
+                            if (p.vulns.length > 0) {
+                                vulnerabilities[p.name] = p.vulns;
+                            }
+                        }
+                        return vulnerabilities;
+                    });
+            },
+            (reason) => {
+                console.warn("Skipping pip-audit check:", reason);
+                return Promise.resolve([]);
+            }
         );
-        if (!nova.fs.access(pipAuditPath, nova.fs.X_OK)) {
-            console.warn("pip-audit not available; skipping vulnerability checks");
-            return Promise.resolve([]);
-        }
-        return utils
-            .run(
-                pipAuditPath,
-                {
-                    env: {
-                        PIPAPI_PYTHON_LOCATION: pythonPath,
-                    },
-                },
-                "--format",
-                "json",
-                "--progress-spinner",
-                "off"
-            )
-            .then((result) => {
-                let vulnerabilities = {};
-                let data = JSON.parse(result.stdout.join(""));
-                for (const p of data.dependencies) {
-                    if (p.vulns.length > 0) {
-                        vulnerabilities[p.name] = p.vulns;
-                    }
-                }
-                return vulnerabilities;
-            });
     }
 }
 
