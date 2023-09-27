@@ -410,6 +410,11 @@
                             "title": "Upgrade to latest version",
                             "command": "python.upgradeSelectedPackages",
                             "when": "viewItem != null"
+                        },
+                        {
+                            "title": "Uninstall",
+                            "command": "python.uninstallSelectedPackages",
+                            "when": "viewItem != null"
                         }
                     ]
                 }

@@ -156,6 +156,15 @@ nova.commands.register("python.upgradeSelectedPackages", (workspace) => {
     });
 });
 
+nova.commands.register("python.uninstallSelectedPackages", (workspace) => {
+    var packages = sidebar.selectedPackages();
+    let note = new Notification(packages.join(", "), "Uninstalling Packages").show();
+    pip.uninstall(packages).then(() => {
+        note.dismiss();
+        sidebar.refresh();
+    });
+});
+
 // Pyright
 nova.commands.register("python.restartPyright", (workspace) => langserver.start());
 
