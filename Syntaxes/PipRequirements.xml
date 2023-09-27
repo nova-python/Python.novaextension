@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<syntax name="pip-requirements">
+    <meta>
+        <name>Pip Requirements</name>
+        <type>structured</type>
+        <preferred-file-extension>txt</preferred-file-extension>
+    </meta>
+
+    <detectors>
+        <filename priority="1.0">requirements.txt,requirements.in</filename>
+    </detectors>
+
+    <tree-sitter language="requirements">
+        <highlights />
+        <symbols />
+    </tree-sitter>
+</syntax>

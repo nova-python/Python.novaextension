@@ -1,0 +1,11 @@
+(package) @identifier.global
+(extras) @processing
+(comment) @comment
+(version_cmp) @operator
+(version) @value.number
+(quoted_string) @string
+(marker_spec) @declaration
+(env_var) @identifier.variable
+(option) @processing
+(argument) @identifier.argument
+(url) @markup.link
