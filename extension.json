@@ -403,7 +403,7 @@
                             "image": "update",
                             "command": "python.upgradeAllPackages",
                             "tooltip": "Upgrade all requirements"
-                        },
+                        }
                     ],
                     "contextCommands": [
                         {
