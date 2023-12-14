@@ -46,7 +46,8 @@ class PythonTaskAssistant {
 
             let cleanCache = context.config.get("python.cleanupCacheFiles", "boolean");
             let cleanBuild = context.config.get("python.cleanupBuildDirs", "boolean");
-            let cleanExtra = context.config.get("python.cleanupExtras", "pathArray");
+            let cleanExtra =
+                context.config.get("python.cleanupExtras", "pathArray") || [];
 
             return new TaskProcessAction(cmd, {
                 args: [nova.workspace.path],
