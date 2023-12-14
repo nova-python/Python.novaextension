@@ -6,7 +6,8 @@ class Pip {
     }
 
     install(packages, upgrade = false) {
-        const extraArgs = upgrade ? ["--upgrade"] : [];
+        const strategy = this.config.get("pipUpgradeStrategy", "string");
+        const extraArgs = upgrade ? ["--upgrade", "--upgrade-strategy", strategy] : [];
         return utils.run(
             this.config.get("pythonPath"),
             "-m",

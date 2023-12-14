@@ -274,6 +274,17 @@
                     "title": "Exclude packages on freeze",
                     "description": "",
                     "type": "stringArray"
+                },
+                {
+                    "key": "python.pipUpgradeStrategy",
+                    "title": "Upgrade strategy",
+                    "description": "",
+                    "type": "enum",
+                    "values": [
+                        ["only-if-needed", "Only if needed (default)"],
+                        ["eager", "Eager"],
+                    ],
+                    "default": "only-if-needed",
                 }
             ]
         },
