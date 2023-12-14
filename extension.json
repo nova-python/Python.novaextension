@@ -3,7 +3,7 @@
     "name": "Python",
     "organization": "Dan Watson",
     "description": "Batteries-included Python support for Nova.",
-    "version": "1.0",
+    "version": "1.1",
     "categories": [
         "commands",
         "languages",
@@ -276,6 +276,35 @@
                     "type": "stringArray"
                 }
             ]
+        },
+        {
+            "type": "section",
+            "title": "Cleanup",
+            "children": [
+                {
+                    "key": "python.cleanupCacheFiles",
+                    "title": "Clean cache files and directories",
+                    "description": "Removes all *.pyc files and __pycache__ directories.",
+                    "type": "boolean",
+                    "default": true
+                },
+                {
+                    "key": "python.cleanupBuildDirs",
+                    "title": "Clean build artifacts",
+                    "description": "Removes top-level dist, build, and egg-info directories.",
+                    "type": "boolean",
+                    "default": false
+                },
+                {
+                    "key": "python.cleanupExtras",
+                    "title": "Clean additional files or directories",
+                    "description": "Removes additional files or directories relative to your workspace root.",
+                    "type": "pathArray",
+                    "allowFiles": true,
+                    "allowFolders": true,
+                    "relative": true
+                }
+            ]
         }
     ],
 
@@ -348,6 +377,11 @@
                 "paletteTitle": "Format Workspace (Black)",
                 "command": "python.formatWorkspace",
                 "shortcut": "cmd-shift-opt-B"
+            },
+            {
+                "title": "Clean Workspace",
+                "command": "python.cleanWorkspace",
+                "shortcut": "cmd-shift-opt-K"
             }
         ]
     },
@@ -423,14 +457,50 @@
     ],
 
     "taskTemplates": {
+        "cleanup": {
+            "name": "Python Cleanup",
+            "description": "Clean up cache files and build artifacts.",
+            "image": "python-nova",
+            "tasks": {
+                "clean": {
+                    "resolve": "net.danwatson.Python",
+                    "data": { "name": "cleanup" }
+                }
+            },
+            "config": [
+                {
+                    "key": "python.cleanupCacheFiles",
+                    "title": "Clean cache files and directories",
+                    "description": "Removes all *.pyc files and __pycache__ directories.",
+                    "type": "boolean",
+                    "default": true
+                },
+                {
+                    "key": "python.cleanupBuildDirs",
+                    "title": "Clean build artifacts",
+                    "description": "Removes top-level dist, build, and egg-info directories.",
+                    "type": "boolean",
+                    "default": false
+                },
+                {
+                    "key": "python.cleanupExtras",
+                    "title": "Clean additional files or directories",
+                    "description": "Removes additional files or directories relative to your workspace root.",
+                    "type": "pathArray",
+                    "allowFiles": true,
+                    "allowFolders": true,
+                    "relative": true
+                }
+            ]
+        },
         "virtualenv": {
             "name": "Virtual Environment",
             "description": "Run scripts or Python modules in an activated virtual environment.",
             "image": "python-nova",
             "tasks": {
                 "run": {
-                    "resolve": "virtualenv",
-                    "data": { "type": "run" }
+                    "resolve": "net.danwatson.Python",
+                    "data": { "name": "run" }
                 }
             },
             "config": [

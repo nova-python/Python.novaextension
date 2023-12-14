@@ -5,7 +5,7 @@ const Linter = require("Linter.js");
 const Config = require("Config.js");
 const Pip = require("Pip.js");
 const PackageSidebar = require("PackageSidebar.js");
-const VirtualEnvTaskAssistant = require("VirtualEnvTaskAssistant.js");
+const PythonTaskAssistant = require("PythonTaskAssistant.js");
 const utils = require("utils.js");
 
 // Read from workspace, extension, and .default named configs.
@@ -179,8 +179,33 @@ nova.commands.register("python.organizeImports", (editor) =>
     linter.fix(editor, "I001")
 );
 
+// Cleanup
+nova.commands.register("python.cleanWorkspace", (workspace) => {
+    let cmd = nova.path.join(nova.extension.path, "Scripts", "clean.sh");
+    let cleanCache = config.get("cleanupCacheFiles", "boolean", true);
+    let cleanBuild = config.get("cleanupBuildDirs", "boolean", false);
+    let cleanExtra = config.get("cleanupExtras", "pathArray", []);
+    return utils
+        .run(
+            cmd,
+            {
+                env: {
+                    CLEAN_CACHE_FILES: cleanCache ? "1" : "0",
+                    CLEAN_BUILD_ARTIFACTS: cleanBuild ? "1" : "0",
+                    CLEAN_EXTRAS: cleanExtra.join(";"),
+                },
+            },
+            workspace.path
+        )
+        .then((result) => {
+            for (const line of result.stdout) {
+                console.log(line.trimEnd());
+            }
+        });
+});
+
 // Task assistants
-nova.assistants.registerTaskAssistant(new VirtualEnvTaskAssistant(config), {
-    identifier: "virtualenv",
-    name: "Virtualenv",
+nova.assistants.registerTaskAssistant(new PythonTaskAssistant(config), {
+    identifier: "net.danwatson.Python",
+    name: "Python",
 });
