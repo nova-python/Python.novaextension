@@ -282,9 +282,9 @@
                     "type": "enum",
                     "values": [
                         ["only-if-needed", "Only if needed (default)"],
-                        ["eager", "Eager"],
+                        ["eager", "Eager"]
                     ],
-                    "default": "only-if-needed",
+                    "default": "only-if-needed"
                 }
             ]
         },
