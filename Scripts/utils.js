@@ -31,6 +31,8 @@ exports.run = function (cmd, opts = {}, ...args) {
         process.onDidExit((code) => {
             if (timeoutID) clearTimeout(timeoutID);
             return resolve({
+                cmd: cmd,
+                args: args,
                 stdout: stdout,
                 stderr: stderr,
                 status: code,
@@ -96,18 +98,19 @@ exports.which = function (cmd) {
         });
 };
 
-var pathCache = {};
+function first(promises) {
+    return Promise.allSettled(promises).then((results) => {
+        let first = results.find((result) => result.status == "fulfilled");
+        if (first) {
+            return Promise.resolve(first.value);
+        }
+        return Promise.reject(new Error("No results."));
+    });
+}
 
-exports.resolvePath = function (cmd, configPath) {
+exports.resolvePath = function (cmds, configPath) {
     if (configPath) {
         return Promise.resolve(configPath);
     }
-    if (pathCache[cmd]) {
-        return Promise.resolve(pathCache[cmd]);
-    }
-    return exports.which(cmd).then((path) => {
-        console.info(`Caching path for ${cmd}: ${path}`);
-        pathCache[cmd] = path;
-        return path;
-    });
+    return first(cmds.map((cmd) => exports.which(cmd)));
 };

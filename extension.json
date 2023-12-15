@@ -3,7 +3,7 @@
     "name": "Python",
     "organization": "Dan Watson",
     "description": "Batteries-included Python support for Nova.",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "categories": [
         "commands",
         "languages",
@@ -27,304 +27,21 @@
         "onWorkspaceContains:*.py",
         "onWorkspaceContains:requirements.txt",
         "onWorkspaceContains:requirements.in",
-        "onWorkspaceContains:pyrightconfig.json"
+        "onWorkspaceContains:pyrightconfig.json",
+        "onWorkspaceContains:pyproject.toml",
+        "onCommand:python.resolveEnvs"
     ],
 
-    "config": [
-        {
-            "key": "python.venvDirs",
-            "title": "Virtual Environment Search Paths",
-            "description": "Folders to search for virtual environments in.",
-            "type": "pathArray",
-            "allowFiles": false,
-            "allowFolders": true
-        },
-        {
-            "type": "section",
-            "title": "Language Server (Pyright)",
-            "link": "https://microsoft.github.io/pyright/#/settings",
-            "children": [
-                {
-                    "key": "python.pyrightPath",
-                    "title": "Executable",
-                    "description": "Path to the pyright-langserver executable.",
-                    "type": "path",
-                    "placeholder": "/opt/homebrew/bin/pyright-langserver"
-                },
-                {
-                    "key": "python.analysis.stubPath",
-                    "title": "Stub path",
-                    "description": "Optional. A folder to look for type stubs in.",
-                    "type": "path",
-                    "allowFiles": false,
-                    "allowFolders": true
-                }
-            ]
-        },
-        {
-            "type": "section",
-            "title": "Formatter (Black)",
-            "link": "https://black.readthedocs.io/en/stable/",
-            "children": [
-                {
-                    "key": "python.formatterPath",
-                    "title": "Executable",
-                    "description": "Path to the Black executable. Leave blank to try to automatically determine the location.",
-                    "type": "path",
-                    "placeholder": "/opt/homebrew/bin/black"
-                },
-                {
-                    "key": "python.formatterArgs",
-                    "title": "Additional Arguments",
-                    "description": "The --quiet option is always set. The --stdin-filename option is set when a filename is available.",
-                    "type": "stringArray",
-                    "default": null
-                }
-            ]
-        },
-        {
-            "type": "section",
-            "title": "Linter (Ruff)",
-            "link": "https://docs.astral.sh/ruff/",
-            "children": [
-                {
-                    "key": "python.linterPath",
-                    "title": "Executable",
-                    "description": "Path to the Ruff executable. Leave blank to try to automatically determine the location.",
-                    "type": "path",
-                    "placeholder": "/opt/homebrew/bin/ruff"
-                },
-                {
-                    "key": "python.linterArgs",
-                    "title": "Additional Arguments",
-                    "description": "The --format and --quiet options are always set.",
-                    "type": "stringArray"
-                }
-            ]
-        },
-        {
-            "type": "section",
-            "title": "Pip",
-            "children": [
-                {
-                    "key": "python.pipAuditPath",
-                    "title": "pip-audit Executable",
-                    "description": "Path to the pip-audit executable. Leave blank to try to automatically determine the location.",
-                    "type": "path",
-                    "placeholder": "/opt/homebrew/bin/pip-audit"
-                }
-            ]
-        }
-    ],
+    "config": "config.json",
 
-    "configWorkspace": [
-        {
-            "key": "python.pythonPath",
-            "title": "Python Interpreter",
-            "type": "enum",
-            "resolve": "python.resolveEnvs",
-            "allowCustom": true
-        },
-        {
-            "title": "Set as built-in interpreter",
-            "description": "Other extensions (including the Python Debug tasks) may use the built-in python.interpreter setting.",
-            "type": "command",
-            "command": "python.copyInterpreter"
-        },
-        {
-            "type": "section",
-            "title": "Language Server (Pyright)",
-            "link": "https://microsoft.github.io/pyright/#/settings",
-            "children": [
-                {
-                    "key": "python.pyrightEnabled",
-                    "title": "Enable language server",
-                    "description": "Whether to enable language server integration for this project.",
-                    "type": "boolean",
-                    "default": true
-                },
-                {
-                    "key": "python.analysis.typeCheckingMode",
-                    "title": "Type checking mode",
-                    "description": "How much type checking you want to do.",
-                    "type": "enum",
-                    "values": [
-                        ["off", "Off"],
-                        ["basic", "Basic"],
-                        ["strict", "Strict"]
-                    ],
-                    "default": "basic"
-                },
-                {
-                    "key": "python.analysis.diagnosticMode",
-                    "title": "Diagnostic mode",
-                    "description": "Whether to report issues for all files in the workspace, or open files only.",
-                    "type": "enum",
-                    "values": [
-                        ["openFilesOnly", "Open files only"],
-                        ["workspace", "All files in workspace"]
-                    ],
-                    "default": "openFilesOnly"
-                },
-                {
-                    "key": "python.pyrightPath",
-                    "title": "Executable",
-                    "description": "Leave blank to use the extension default.",
-                    "type": "path",
-                    "placeholder": "(default)"
-                },
-                {
-                    "key": "python.analysis.stubPath",
-                    "title": "Stub path",
-                    "description": "A folder to look for type stubs in. Leave blank to use the extension default.",
-                    "type": "path",
-                    "allowFiles": false,
-                    "allowFolders": true
-                },
-                {
-                    "key": "python.analysis.extraPaths",
-                    "title": "Extra paths",
-                    "description": "Additional paths to include in analysis.",
-                    "type": "pathArray",
-                    "allowFiles": false,
-                    "allowFolders": true
-                }
-            ]
-        },
-        {
-            "type": "section",
-            "title": "Formatter (Black)",
-            "link": "https://black.readthedocs.io/en/stable/",
-            "children": [
-                {
-                    "key": "python.formatterPath",
-                    "title": "Executable",
-                    "description": "Path to the Black executable. Leave blank to use the extension default.",
-                    "type": "path",
-                    "placeholder": "(default)"
-                },
-                {
-                    "key": "python.formatterArgs",
-                    "title": "Additional Arguments",
-                    "description": "The --quiet option is always set. The --stdin-filename option is set when a filename is available.",
-                    "type": "stringArray",
-                    "default": null
-                },
-                {
-                    "key": "python.formatOnSave",
-                    "title": "Format on save",
-                    "type": "boolean",
-                    "default": false
-                }
-            ]
-        },
-        {
-            "type": "section",
-            "title": "Linter (Ruff)",
-            "link": "https://docs.astral.sh/ruff/",
-            "children": [
-                {
-                    "key": "python.linterPath",
-                    "title": "Executable",
-                    "description": "Path to the Ruff executable. Leave blank to use the extension default.",
-                    "type": "path",
-                    "placeholder": "(default)"
-                },
-                {
-                    "key": "python.linterArgs",
-                    "title": "Additional Arguments",
-                    "description": "The --format and --quiet options are always set.",
-                    "type": "stringArray"
-                },
-                {
-                    "key": "python.linterCheckMode",
-                    "title": "Check Mode",
-                    "description": "An event on which to perform a check.",
-                    "type": "enum",
-                    "values": [
-                        ["onChange", "On file change"],
-                        ["onSave", "On file save"],
-                        ["-", "Command only"]
-                    ],
-                    "default": "onChange"
-                }
-            ]
-        },
-        {
-            "type": "section",
-            "title": "Pip",
-            "children": [
-                {
-                    "key": "python.pipRequirements",
-                    "title": "Frozen requirements",
-                    "type": "path",
-                    "relative": true,
-                    "placeholder": "requirements.txt"
-                },
-                {
-                    "key": "python.pipRequirementsInput",
-                    "title": "Input requirements",
-                    "description": "Optional. Top-level requirements from which to update and generate frozen requirements. Do not include dependencies you don't use directly.",
-                    "type": "path",
-                    "relative": true,
-                    "placeholder": "requirements.in"
-                },
-                {
-                    "key": "python.pipExclude",
-                    "title": "Exclude packages on freeze",
-                    "description": "",
-                    "type": "stringArray"
-                },
-                {
-                    "key": "python.pipUpgradeStrategy",
-                    "title": "Upgrade strategy",
-                    "description": "",
-                    "type": "enum",
-                    "values": [
-                        ["only-if-needed", "Only if needed (default)"],
-                        ["eager", "Eager"]
-                    ],
-                    "default": "only-if-needed"
-                }
-            ]
-        },
-        {
-            "type": "section",
-            "title": "Cleanup",
-            "children": [
-                {
-                    "key": "python.cleanupCacheFiles",
-                    "title": "Clean cache files and directories",
-                    "description": "Removes all *.pyc files and __pycache__ directories.",
-                    "type": "boolean",
-                    "default": true
-                },
-                {
-                    "key": "python.cleanupBuildDirs",
-                    "title": "Clean build artifacts",
-                    "description": "Removes top-level dist, build, and egg-info directories.",
-                    "type": "boolean",
-                    "default": false
-                },
-                {
-                    "key": "python.cleanupExtras",
-                    "title": "Clean additional files or directories",
-                    "description": "Removes additional files or directories relative to your workspace root.",
-                    "type": "pathArray",
-                    "allowFiles": true,
-                    "allowFolders": true,
-                    "relative": true
-                }
-            ]
-        }
-    ],
+    "configWorkspace": "configWorkspace.json",
 
     "commands": {
         "editor": [
             {
                 "title": "Format",
-                "paletteTitle": "Format (Black)",
-                "command": "python.formatWithBlack",
+                "paletteTitle": "Format",
+                "command": "python.format",
                 "shortcut": "cmd-shift-B",
                 "filters": {
                     "syntaxes": ["python"]
@@ -332,17 +49,17 @@
             },
             {
                 "title": "Check",
-                "paletteTitle": "Check (Ruff)",
-                "command": "python.checkWithRuff",
+                "paletteTitle": "Check Violations",
+                "command": "python.check",
                 "shortcut": "shift-cmd-8",
                 "filters": {
                     "syntaxes": ["python"]
                 }
             },
             {
-                "title": "Fix Violations",
-                "paletteTitle": "Fix Violations (Ruff)",
-                "command": "python.fixRuffViolations",
+                "title": "Fix",
+                "paletteTitle": "Fix Violations",
+                "command": "python.fix",
                 "shortcut": "shift-cmd-opt-8",
                 "filters": {
                     "syntaxes": ["python"]
@@ -350,7 +67,7 @@
             },
             {
                 "title": "Organize Imports",
-                "paletteTitle": "Organize Imports (Ruff)",
+                "paletteTitle": "Organize Imports",
                 "command": "python.organizeImports",
                 "shortcut": "shift-opt-O",
                 "filters": {
@@ -385,9 +102,19 @@
             },
             {
                 "title": "Format Workspace",
-                "paletteTitle": "Format Workspace (Black)",
+                "paletteTitle": "Format (Workspace)",
                 "command": "python.formatWorkspace",
                 "shortcut": "cmd-shift-opt-B"
+            },
+            {
+                "title": "Fix All Workspace Violations",
+                "paletteTitle": "Fix Violations (Workspace)",
+                "command": "python.fixWorkspace"
+            },
+            {
+                "title": "Organize All Workspace Imports",
+                "paletteTitle": "Organize Imports (Workspace)",
+                "command": "python.organizeWorkspace"
             },
             {
                 "title": "Clean Workspace",

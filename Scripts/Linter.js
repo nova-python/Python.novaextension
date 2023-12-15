@@ -1,5 +1,11 @@
 const utils = require("utils.js");
 
+const LinterAction = {
+    Check: "check",
+    Fix: "fix",
+    Organize: "organize",
+};
+
 class Linter {
     constructor(config) {
         this.config = config;
@@ -9,7 +15,7 @@ class Linter {
     }
 
     activate() {
-        this.issues = new IssueCollection("ruff");
+        this.issues = new IssueCollection();
         this.listener = nova.workspace.config.observe(
             "python.linterCheckMode",
             (mode) => {
@@ -44,22 +50,27 @@ class Linter {
         this.issues = null;
     }
 
-    run(stdin, fix = null) {
-        const executable = this.config.get("linterPath", "string");
+    argsForCommand(cmd, action, directory) {
         const userArgs = this.config.get("linterArgs", "array", []);
-        const selectArgs = fix ? ["--select", fix, "--fix"] : [];
-        const finalArgs = [
-            "check",
-            ...userArgs,
-            ...selectArgs,
-            "--format",
-            "github",
-            "--quiet",
-            "-",
-        ];
-        const opts = { stdin: stdin };
+        const finalArgs = ["check", "--quiet", ...userArgs];
+        if (action == LinterAction.Fix) {
+            finalArgs.push("--fix");
+        } else if (action == LinterAction.Organize) {
+            finalArgs.push("--select", "I001", "--fix");
+        } else {
+            finalArgs.push("--format", "github");
+        }
+        finalArgs.push(directory || "-");
+        return finalArgs;
+    }
 
-        return utils.resolvePath("ruff", executable).then((cmd) => {
+    run(stdin, action = LinterAction.Check, directory = null) {
+        const executable = this.config.get("linterPath", "string");
+        const opts = { stdin: stdin };
+        const self = this;
+
+        return utils.resolvePath(["ruff"], executable).then((cmd) => {
+            const finalArgs = self.argsForCommand(cmd, action, directory);
             return utils.run(cmd, opts, ...finalArgs);
         });
     }
@@ -81,7 +92,7 @@ class Linter {
         });
     }
 
-    fix(editor, select = "ALL") {
+    fix(editor, action = LinterAction.Fix) {
         if (editor.document.isEmpty) {
             return;
         }
@@ -89,7 +100,7 @@ class Linter {
         const textRange = new Range(0, editor.document.length);
         const content = editor.document.getTextInRange(textRange);
 
-        return this.run(content, select).then((result) => {
+        return this.run(content, action).then((result) => {
             if (result.success) {
                 const newContent = result.stdout.join("");
                 return editor.edit((edit) => {
@@ -99,6 +110,18 @@ class Linter {
                 });
             }
         });
+    }
+
+    fixWorkspace(workspace) {
+        return this.run(null, LinterAction.Fix, workspace.path);
+    }
+
+    organize(editor) {
+        return this.fix(editor, LinterAction.Organize);
+    }
+
+    organizeWorkspace(workspace) {
+        return this.run(null, LinterAction.Organize, workspace.path);
     }
 
     manualCheck(editor) {

@@ -73,7 +73,7 @@ class Pip {
     audit() {
         let pythonPath = this.config.get("pythonPath");
         let pipAuditPath = this.config.get("pipAuditPath", "string");
-        return utils.resolvePath("pip-audit", pipAuditPath).then(
+        return utils.resolvePath(["pip-audit"], pipAuditPath).then(
             (cmd) => {
                 return utils
                     .run(

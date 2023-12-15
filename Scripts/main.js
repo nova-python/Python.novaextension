@@ -168,16 +168,16 @@ nova.commands.register("python.uninstallSelectedPackages", (workspace) => {
 // Pyright
 nova.commands.register("python.restartPyright", (workspace) => langserver.start());
 
-// Black
-nova.commands.register("python.formatWithBlack", formatter.format, formatter);
+// Formatting
+nova.commands.register("python.format", formatter.format, formatter);
 nova.commands.register("python.formatWorkspace", formatter.formatWorkspace, formatter);
 
-// Ruff
-nova.commands.register("python.checkWithRuff", (editor) => linter.manualCheck(editor));
-nova.commands.register("python.fixRuffViolations", (editor) => linter.fix(editor));
-nova.commands.register("python.organizeImports", (editor) =>
-    linter.fix(editor, "I001")
-);
+// Linting
+nova.commands.register("python.check", linter.manualCheck, linter);
+nova.commands.register("python.fix", linter.fix, linter);
+nova.commands.register("python.fixWorkspace", linter.fixWorkspace, linter)
+nova.commands.register("python.organizeImports", linter.organize, linter);
+nova.commands.register("python.organizeWorkspace", linter.organizeWorkspace, linter);
 
 // Cleanup
 nova.commands.register("python.cleanWorkspace", (workspace) => {

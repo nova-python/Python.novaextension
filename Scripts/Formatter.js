@@ -3,7 +3,6 @@ const utils = require("utils.js");
 class Formatter {
     constructor(config) {
         this.config = config;
-        this.executableCache = null;
     }
 
     activate() {
@@ -16,13 +15,28 @@ class Formatter {
 
     deactivate() {}
 
-    run(stdin, ...args) {
+    argsForCommand(cmd, filename, directory = null) {
         const executable = this.config.get("formatterPath", "string");
         const extraArgs = this.config.get("formatterArgs", "array", []);
-        const finalArgs = [...extraArgs, ...args];
-        const opts = { stdin: stdin };
+        const fileArgs = filename ? ["--stdin-filename", filename] : [];
+        const target = directory || "-";
 
-        return utils.resolvePath("black", executable).then((cmd) => {
+        if (cmd.endsWith("ruff")) {
+            return ["format", "--quiet", ...extraArgs, ...fileArgs, target];
+        } else if (cmd.endswith("black")) {
+            return ["--quiet", ...extraArgs, ...fileArgs, target];
+        }
+
+        return extraArgs;
+    }
+
+    run(stdin, filename, directory = null) {
+        const executable = this.config.get("formatterPath", "string");
+        const opts = { stdin: stdin };
+        const self = this;
+
+        return utils.resolvePath(["ruff", "black"], executable).then((cmd) => {
+            const finalArgs = self.argsForCommand(cmd, filename, directory);
             return utils.run(cmd, opts, ...finalArgs);
         });
     }
@@ -36,14 +50,10 @@ class Formatter {
             ? nova.path.basename(editor.document.path)
             : null;
 
-        const defaultArgs = filename
-            ? ["--stdin-filename", filename, "--quiet", "-"]
-            : ["--quiet", "-"];
-
         const textRange = new Range(0, editor.document.length);
         const content = editor.document.getTextInRange(textRange);
 
-        return this.run(content, ...defaultArgs).then((result) => {
+        return this.run(content, filename).then((result) => {
             if (result.success) {
                 const formattedContent = result.stdout.join("");
                 return editor.edit((edit) => {
@@ -66,7 +76,7 @@ class Formatter {
     }
 
     formatWorkspace(workspace) {
-        return this.run(null, "--quiet", ".");
+        return this.run(null, null, workspace.path);
     }
 }
 

@@ -1,0 +1,86 @@
+[
+    {
+        "key": "python.venvDirs",
+        "title": "Virtual Environment Search Paths",
+        "description": "Folders to search for virtual environments in.",
+        "type": "pathArray",
+        "allowFiles": false,
+        "allowFolders": true
+    },
+    {
+        "type": "section",
+        "title": "Language Server (Pyright)",
+        "link": "https://microsoft.github.io/pyright/#/settings",
+        "children": [
+            {
+                "key": "python.pyrightPath",
+                "title": "Executable",
+                "description": "Path to the pyright-langserver executable.",
+                "type": "path",
+                "placeholder": "/opt/homebrew/bin/pyright-langserver"
+            },
+            {
+                "key": "python.analysis.stubPath",
+                "title": "Stub path",
+                "description": "Optional. A folder to look for type stubs in.",
+                "type": "path",
+                "allowFiles": false,
+                "allowFolders": true
+            }
+        ]
+    },
+    {
+        "type": "section",
+        "title": "Formatter",
+        "link": "https://docs.astral.sh/ruff/formatter/",
+        "children": [
+            {
+                "key": "python.formatterPath",
+                "title": "Executable",
+                "description": "Path to a `ruff` or `black` executable. Leave blank to find automatically.",
+                "type": "path",
+                "placeholder": "/opt/homebrew/bin/ruff"
+            },
+            {
+                "key": "python.formatterArgs",
+                "title": "Additional Arguments",
+                "description": "The --quiet option is always set. The --stdin-filename option is set when a filename is available.",
+                "type": "stringArray",
+                "default": null
+            }
+        ]
+    },
+    {
+        "type": "section",
+        "title": "Linter",
+        "link": "https://docs.astral.sh/ruff/linter/",
+        "children": [
+            {
+                "key": "python.linterPath",
+                "title": "Executable",
+                "description": "Path to the `ruff` executable. Leave blank to find automatically.",
+                "type": "path",
+                "placeholder": "/opt/homebrew/bin/ruff"
+            },
+            {
+                "key": "python.linterArgs",
+                "title": "Additional Arguments",
+                "description": "The --format and --quiet options are always set.",
+                "type": "stringArray"
+            }
+        ]
+    },
+    {
+        "type": "section",
+        "title": "Pip",
+        "children": [
+            {
+                "key": "python.pipAuditPath",
+                "title": "pip-audit Executable",
+                "description": "Path to the `pip-audit` executable. Leave blank to find automatically.",
+                "type": "path",
+                "placeholder": "/opt/homebrew/bin/pip-audit"
+            }
+        ]
+    }
+]
