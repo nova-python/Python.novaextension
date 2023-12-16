@@ -40,7 +40,10 @@ exports.run = function (cmd, opts = {}, ...args) {
             });
         });
 
-        console.info("Running", cmd, args.join(" "));
+        if (!opts.quiet) {
+            console.info("Running", cmd, args.join(" "));
+        }
+
         process.start();
 
         if (opts.stdin) {
@@ -86,6 +89,7 @@ exports.which = function (cmd) {
             "/usr/bin/which",
             {
                 env: exports.activatedEnv(),
+                quiet: true,
             },
             cmd
         )

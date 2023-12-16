@@ -31,15 +31,16 @@ exports.activate = function () {
 
     langserver.activate();
     sidebar.activate();
-    formatter.activate();
+    // Activate the linter first, so on-save fixes happen before formatting.
     linter.activate();
+    formatter.activate();
 };
 
 exports.deactivate = function () {
     langserver.deactivate();
     sidebar.deactivate();
-    formatter.deactivate();
     linter.deactivate();
+    formatter.deactivate();
 };
 
 nova.commands.register("python.copyInterpreter", (workspace) => {

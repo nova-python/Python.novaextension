@@ -12,7 +12,7 @@ fi
 if [ "$CLEAN_BUILD_ARTIFACTS" = "1" ]
 then
     echo "  * cleaning build artifacts"
-    rm -rf "$1/dist" "$1/build" "$1/*.egg-info"
+    rm -rf "$1/dist" "$1/build" "$1"/*.egg-info
 fi
 
 if [ "$CLEAN_EXTRAS" != "" ]

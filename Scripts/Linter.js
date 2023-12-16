@@ -4,6 +4,7 @@ const LinterAction = {
     Check: "check",
     Fix: "fix",
     Organize: "organize",
+    FixAndOrganize: "fixAndOrganize",
 };
 
 class Linter {
@@ -15,6 +16,12 @@ class Linter {
     }
 
     activate() {
+        nova.subscriptions.add(
+            nova.workspace.onDidAddTextEditor((editor) => {
+                editor.onWillSave(this.maybeFix, this);
+            })
+        );
+
         this.issues = new IssueCollection();
         this.listener = nova.workspace.config.observe(
             "python.linterCheckMode",
@@ -53,7 +60,9 @@ class Linter {
     argsForCommand(cmd, action, directory) {
         const userArgs = this.config.get("linterArgs", "array", []);
         const finalArgs = ["check", "--quiet", ...userArgs];
-        if (action == LinterAction.Fix) {
+        if (action == LinterAction.FixAndOrganize) {
+            finalArgs.push("--extend-select", "I001", "--fix");
+        } else if (action == LinterAction.Fix) {
             finalArgs.push("--fix");
         } else if (action == LinterAction.Organize) {
             finalArgs.push("--select", "I001", "--fix");
@@ -134,6 +143,21 @@ class Linter {
     provideIssues(editor) {
         this.issues.clear();
         return this.check(editor);
+    }
+
+    maybeFix(editor) {
+        if (editor.document.syntax !== "python") return;
+
+        const shouldFix = this.config.get("fixOnSave", "boolean", false);
+        const shouldOrganize = this.config.get("organizeOnSave", "boolean", false);
+
+        if (shouldFix && shouldOrganize) {
+            return this.fix(editor, LinterAction.FixAndOrganize);
+        } else if (shouldFix) {
+            return this.fix(editor, LinterAction.Fix);
+        } else if (shouldOrganize) {
+            return this.fix(editor, LinterAction.Organize);
+        }
     }
 }
 
