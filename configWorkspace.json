@@ -114,7 +114,7 @@
             {
                 "key": "python.linterArgs",
                 "title": "Additional Arguments",
-                "description": "The --format and --quiet options are always set.",
+                "description": "The --output-format and --quiet options are always set.",
                 "type": "stringArray"
             },
             {

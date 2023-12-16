@@ -67,7 +67,7 @@ class Linter {
         } else if (action == LinterAction.Organize) {
             finalArgs.push("--select", "I001", "--fix");
         } else {
-            finalArgs.push("--format", "github");
+            finalArgs.push("--output-format", "github");
         }
         finalArgs.push(directory || "-");
         return finalArgs;
