@@ -8,6 +8,7 @@ const RELOAD_PREFS = new Set([
     "python.analysis.typeCheckingMode",
     "python.analysis.stubPath",
     "python.analysis.extraPaths",
+    "pyright.disableTaggedHints",
 ]);
 
 class PyrightLanguageServer {

@@ -1,4 +1,9 @@
-## Version 1.2 - 2023.12.xx
+## Version 1.2.1 - 2024.04.03
+
+* Added support for Pyright's `pyright.disableTaggedHints` setting
+
+
+## Version 1.2 - 2023.12.15
 
 * New commands for fixing all violations or organizing all imports in your workspace
 * Support (and prefer) `ruff format` in addition to `black`

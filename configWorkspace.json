@@ -48,6 +48,13 @@
                 "default": "openFilesOnly"
             },
             {
+                "key": "pyright.disableTaggedHints",
+                "title": "Disable tagged hints",
+                "description": "Disables the use of hint diagnostics with special tags (for example: `x is not accessed`)",
+                "type": "boolean",
+                "default": false
+            },
+            {
                 "key": "python.pyrightPath",
                 "title": "Executable",
                 "description": "Leave blank to use the extension default.",
