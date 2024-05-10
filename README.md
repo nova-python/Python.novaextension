@@ -8,7 +8,7 @@
 * Linting (and import organization) with [Ruff](https://docs.astral.sh/ruff/)
 * A Virtual Environment task for running a script or Python module as though the project's virtual environment is active
 * A Cleanup task for clearing out Python cache files, build artifacts, and other files/directories
-* A tree-sitter based syntax for `requirements.txt` files, based off of [tree-sitter-requirements](https://github.com/ObserverOfTime/tree-sitter-requirements)
+* A tree-sitter based syntax for `requirements.txt` files, based off of [tree-sitter-requirements](https://github.com/tree-sitter-grammars/tree-sitter-requirements)
 * A sidebar showing all packages installed in your configured Python environment, along with any outdated versions, and optionally any known vulnerabilities using [pip-audit](https://github.com/pypa/pip-audit)
 
 ![Python Sidebar](https://github.com/nova-python/Python.novaextension/raw/main/python-sidebar.png)

@@ -3,7 +3,7 @@
     "name": "Python",
     "organization": "Dan Watson",
     "description": "Batteries-included Python support for Nova.",
-    "version": "1.2.1",
+    "version": "1.3.0",
     "categories": [
         "commands",
         "languages",
@@ -27,6 +27,7 @@
         "onWorkspaceContains:*.py",
         "onWorkspaceContains:requirements.txt",
         "onWorkspaceContains:requirements.in",
+        "onWorkspaceContains:requirements.lock",
         "onWorkspaceContains:pyrightconfig.json",
         "onWorkspaceContains:pyproject.toml",
         "onCommand:python.resolveEnvs"
@@ -115,6 +116,11 @@
                 "title": "Organize All Workspace Imports",
                 "paletteTitle": "Organize Imports (Workspace)",
                 "command": "python.organizeWorkspace"
+            },
+            {
+                "title": "Fix and Organize All Workspace Imports",
+                "paletteTitle": "Fix and Organize Imports (Workspace)",
+                "command": "python.fixOrganizeWorkspace"
             },
             {
                 "title": "Clean Workspace",

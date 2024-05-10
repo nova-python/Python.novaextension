@@ -7,7 +7,7 @@
     </meta>
 
     <detectors>
-        <filename priority="1.0">requirements.txt,requirements.in</filename>
+        <filename priority="1.0">requirements.txt,requirements.in,requirements.lock,requirements-dev.lock</filename>
     </detectors>
 
     <tree-sitter language="requirements">

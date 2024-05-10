@@ -1,3 +1,11 @@
+## Version 1.3.0 - 2024.05.10
+
+* Added a `Fix and Organize Imports (Workspace)` command
+* Search workspace root for virtual environments (`.venv`, etc.)
+* Recognize `requirements.lock` and `requirements-dev.lock` as requirements files
+* Updated to latest [tree-sitter-requirements](https://github.com/tree-sitter-grammars/tree-sitter-requirements)
+
+
 ## Version 1.2.1 - 2024.04.03
 
 * Added support for Pyright's `pyright.disableTaggedHints` setting

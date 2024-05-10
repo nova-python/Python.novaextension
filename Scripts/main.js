@@ -55,6 +55,10 @@ nova.commands.register("python.resolveEnvs", (workspace) => {
     let venvDirs = config.get("venvDirs", "array");
     let promises = [];
 
+    if (config.get("venvSearchWorkspace", "boolean", true)) {
+        venvDirs.unshift(workspace.path);
+    }
+
     if (!venvDirs) return [];
 
     for (const dir of venvDirs) {
@@ -179,6 +183,7 @@ nova.commands.register("python.fix", linter.fix, linter);
 nova.commands.register("python.fixWorkspace", linter.fixWorkspace, linter)
 nova.commands.register("python.organizeImports", linter.organize, linter);
 nova.commands.register("python.organizeWorkspace", linter.organizeWorkspace, linter);
+nova.commands.register("python.fixOrganizeWorkspace", linter.fixOrganizeWorkspace, linter)
 
 // Cleanup
 nova.commands.register("python.cleanWorkspace", (workspace) => {

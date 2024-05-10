@@ -1,5 +1,12 @@
 [
     {
+        "key": "python.venvSearchWorkspace",
+        "title": "Look for virtual environments in workspace",
+        "description": "Whether to search for virtual environments in the workspace root.",
+        "type": "boolean",
+        "default": true
+    },
+    {
         "key": "python.venvDirs",
         "title": "Virtual Environment Search Paths",
         "description": "Folders to search for virtual environments in.",

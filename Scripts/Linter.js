@@ -61,11 +61,11 @@ class Linter {
         const userArgs = this.config.get("linterArgs", "array", []);
         const finalArgs = ["check", "--quiet", ...userArgs];
         if (action == LinterAction.FixAndOrganize) {
-            finalArgs.push("--extend-select", "I001", "--fix");
+            finalArgs.push("--extend-select", "I", "--fix");
         } else if (action == LinterAction.Fix) {
             finalArgs.push("--fix");
         } else if (action == LinterAction.Organize) {
-            finalArgs.push("--select", "I001", "--fix");
+            finalArgs.push("--select", "I", "--fix");
         } else {
             finalArgs.push("--output-format", "github");
         }
@@ -131,6 +131,10 @@ class Linter {
 
     organizeWorkspace(workspace) {
         return this.run(null, LinterAction.Organize, workspace.path);
+    }
+
+    fixOrganizeWorkspace(workspace) {
+        return this.run(null, LinterAction.FixAndOrganize, workspace.path);
     }
 
     manualCheck(editor) {
