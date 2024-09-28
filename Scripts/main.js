@@ -52,7 +52,7 @@ nova.commands.register("python.copyInterpreter", (workspace) => {
 });
 
 nova.commands.register("python.resolveEnvs", (workspace) => {
-    let venvDirs = config.get("venvDirs", "array");
+    let venvDirs = config.get("venvDirs", "array") || [];
     let promises = [];
 
     if (config.get("venvSearchWorkspace", "boolean", true)) {

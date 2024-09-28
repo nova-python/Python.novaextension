@@ -1,3 +1,8 @@
+## Version 1.3.1 - 2024.09.27
+
+* Minor bug fix when no `venvDirs` set
+
+
 ## Version 1.3.0 - 2024.05.10
 
 * Added a `Fix and Organize Imports (Workspace)` command
