@@ -1,3 +1,11 @@
+## Version 1.4.0 - 2025.01.30
+
+* Fix an issue where imports were not sorted on save if linting errors exist in the file
+* **Initial support for uv!**
+    * Use `uv` when available for freezing requirements (via `uv export`)
+    * Use `uv` for the package sidebar (much faster to show outdated and audit)
+
+
 ## Version 1.3.1 - 2024.09.27
 
 * Minor bug fix when no `venvDirs` set

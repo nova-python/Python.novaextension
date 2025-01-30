@@ -15,6 +15,7 @@ exports.run = function (cmd, opts = {}, ...args) {
             stdio: "pipe",
             cwd: opts.cwd || nova.workspace.path,
             env: opts.env || {},
+            shell: opts.shell || false,
         });
 
         var stdout = [];

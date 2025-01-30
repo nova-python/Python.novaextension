@@ -59,7 +59,7 @@ class Linter {
 
     argsForCommand(cmd, action, directory) {
         const userArgs = this.config.get("linterArgs", "array", []);
-        const finalArgs = ["check", "--quiet", ...userArgs];
+        const finalArgs = ["check", "--quiet", "--exit-zero", ...userArgs];
         if (action == LinterAction.FixAndOrganize) {
             finalArgs.push("--extend-select", "I", "--fix");
         } else if (action == LinterAction.Fix) {

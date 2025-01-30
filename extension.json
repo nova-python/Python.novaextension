@@ -3,7 +3,7 @@
     "name": "Python",
     "organization": "Dan Watson",
     "description": "Batteries-included Python support for Nova.",
-    "version": "1.3.1",
+    "version": "1.4.0",
     "categories": [
         "commands",
         "languages",
@@ -28,6 +28,7 @@
         "onWorkspaceContains:requirements.txt",
         "onWorkspaceContains:requirements.in",
         "onWorkspaceContains:requirements.lock",
+        "onWorkspaceContains:uv.lock",
         "onWorkspaceContains:pyrightconfig.json",
         "onWorkspaceContains:pyproject.toml",
         "onCommand:python.resolveEnvs"
