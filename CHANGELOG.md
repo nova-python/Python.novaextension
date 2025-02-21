@@ -1,6 +1,11 @@
+## Version 1.4.1 - 2025.02.21
+
+* Fixed an issue where `--stdin-filename` was not being passed to `ruff` (#10)
+
+
 ## Version 1.4.0 - 2025.01.30
 
-* Fix an issue where imports were not sorted on save if linting errors exist in the file
+* Fixed an issue where imports were not sorted on save if linting errors exist in the file
 * **Initial support for uv!**
     * Use `uv` when available for freezing requirements (via `uv export`)
     * Use `uv` for the package sidebar (much faster to show outdated and audit)
