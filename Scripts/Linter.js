@@ -57,7 +57,7 @@ class Linter {
         this.issues = null;
     }
 
-    argsForCommand(cmd, action, directory) {
+    argsForCommand(cmd, action, directory, filename) {
         const userArgs = this.config.get("linterArgs", "array", []);
         const finalArgs = ["check", "--quiet", "--exit-zero", ...userArgs];
         if (action == LinterAction.FixAndOrganize) {
@@ -69,17 +69,20 @@ class Linter {
         } else {
             finalArgs.push("--output-format", "github");
         }
+        if (filename) {
+            finalArgs.push("--stdin-filename", filename);
+        }
         finalArgs.push(directory || "-");
         return finalArgs;
     }
 
-    run(stdin, action = LinterAction.Check, directory = null) {
+    run(stdin, action = LinterAction.Check, directory = null, filename = null) {
         const executable = this.config.get("linterPath", "string");
         const opts = { stdin: stdin };
         const self = this;
 
         return utils.resolvePath(["ruff"], executable).then((cmd) => {
-            const finalArgs = self.argsForCommand(cmd, action, directory);
+            const finalArgs = self.argsForCommand(cmd, action, directory, filename);
             return utils.run(cmd, opts, ...finalArgs);
         });
     }
@@ -92,13 +95,15 @@ class Linter {
         const textRange = new Range(0, editor.document.length);
         const content = editor.document.getTextInRange(textRange);
 
-        return this.run(content).then((result) => {
-            const parser = new IssueParser("ruff");
-            for (const line of result.stdout) {
-                parser.pushLine(line);
+        return this.run(content, LinterAction.Check, null, editor.document.path).then(
+            (result) => {
+                const parser = new IssueParser("ruff");
+                for (const line of result.stdout) {
+                    parser.pushLine(line);
+                }
+                return parser.issues;
             }
-            return parser.issues;
-        });
+        );
     }
 
     fix(editor, action = LinterAction.Fix) {
@@ -109,7 +114,7 @@ class Linter {
         const textRange = new Range(0, editor.document.length);
         const content = editor.document.getTextInRange(textRange);
 
-        return this.run(content, action).then((result) => {
+        return this.run(content, action, null, editor.document.path).then((result) => {
             if (result.success) {
                 const newContent = result.stdout.join("");
                 return editor.edit((edit) => {

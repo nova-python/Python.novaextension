@@ -46,14 +46,10 @@ class Formatter {
             return;
         }
 
-        const filename = editor.document.path
-            ? nova.path.basename(editor.document.path)
-            : null;
-
         const textRange = new Range(0, editor.document.length);
         const content = editor.document.getTextInRange(textRange);
 
-        return this.run(content, filename).then((result) => {
+        return this.run(content, editor.document.path).then((result) => {
             if (result.success) {
                 const formattedContent = result.stdout.join("");
                 return editor.edit((edit) => {
