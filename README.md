@@ -4,7 +4,7 @@
 ## What's in the box?
 
 * Integration with Microsoft's [Pyright language server](https://microsoft.github.io/pyright/#/)
-* Code formatting using [Ruff](https://docs.astral.sh/ruff/) or [Black](https://black.readthedocs.io/en/stable/)
+* Code formatting using [Ruff](https://docs.astral.sh/ruff/), [Black](https://black.readthedocs.io/en/stable/), or [autopep8](https://pypi.org/project/autopep8/)
 * Linting (and import organization) with [Ruff](https://docs.astral.sh/ruff/)
 * A Virtual Environment task for running a script or Python module as though the project's virtual environment is active
 * A Cleanup task for clearing out Python cache files, build artifacts, and other files/directories
