@@ -44,7 +44,7 @@
             {
                 "key": "python.formatterPath",
                 "title": "Executable",
-                "description": "Path to a `ruff` or `black` executable. Leave blank to find automatically.",
+                "description": "Path to a `ruff`, `black`, or `autopep8` executable. Leave blank to find automatically.",
                 "type": "path",
                 "placeholder": "/opt/homebrew/bin/ruff"
             },

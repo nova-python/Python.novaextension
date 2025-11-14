@@ -23,8 +23,11 @@ class Formatter {
 
         if (cmd.endsWith("ruff")) {
             return ["format", "--quiet", ...extraArgs, ...fileArgs, target];
-        } else if (cmd.endswith("black")) {
+        } else if (cmd.endsWith("black")) {
             return ["--quiet", ...extraArgs, ...fileArgs, target];
+        } else if (cmd.endsWith("autopep8")) {
+            const workspaceArgs = directory ? ["--in-place", "--recursive"] : []
+            return [...workspaceArgs, ...extraArgs, target];
         }
 
         return extraArgs;
@@ -35,7 +38,7 @@ class Formatter {
         const opts = { stdin: stdin };
         const self = this;
 
-        return utils.resolvePath(["ruff", "black"], executable).then((cmd) => {
+        return utils.resolvePath(["ruff", "black", "autopep8"], executable).then((cmd) => {
             const finalArgs = self.argsForCommand(cmd, filename, directory);
             return utils.run(cmd, opts, ...finalArgs);
         });
