@@ -3,7 +3,7 @@
     "name": "Python",
     "organization": "Dan Watson",
     "description": "Batteries-included Python support for Nova.",
-    "version": "1.4.1",
+    "version": "1.5.0",
     "categories": [
         "commands",
         "languages",
@@ -266,6 +266,12 @@
                     "key": "args",
                     "title": "Arguments",
                     "description": "Custom arguments to pass to the target.",
+                    "type": "stringArray"
+                },
+                {
+                    "key": "env",
+                    "title": "Environment",
+                    "description": "Custom environment variables to set when executing the target.",
                     "type": "stringArray"
                 },
                 {

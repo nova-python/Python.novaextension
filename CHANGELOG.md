@@ -1,3 +1,9 @@
+## Version 1.5.0 - 2025.11.22
+
+* Support for `autopep8` (#16)
+* Allow setting environment variables for Virtual Environment tasks (#15)
+
+
 ## Version 1.4.1 - 2025.02.21
 
 * Fixed an issue where `--stdin-filename` was not being passed to `ruff` (#10)

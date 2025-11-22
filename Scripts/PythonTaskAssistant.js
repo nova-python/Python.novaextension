@@ -15,29 +15,38 @@ class PythonTaskAssistant {
             let script = context.config.get("script", "string");
             let pythonModule = context.config.get("module", "string");
             let args = context.config.get("args", "array") || [];
+            let extraEnv = context.config.get("env", "array") || [];
             let workdir = context.config.get("workdir", "string");
 
             if (!script && !pythonModule) {
                 throw new Error(
-                    "No Python script or module has been set for the task."
+                    "No Python script or module has been set for the task.",
                 );
+            }
+
+            var env = {
+                PYTHONUNBUFFERED: "1",
+            };
+            for (const e of extraEnv) {
+                const i = e.indexOf("=");
+                if (i > 0) {
+                    const key = e.substring(0, i);
+                    const value = e.substring(i + 1);
+                    env[key] = value;
+                }
             }
 
             if (script) {
                 let scriptPath = nova.path.join(nova.workspace.path, script);
                 return new TaskProcessAction(scriptPath, {
                     args: args,
-                    env: utils.activatedEnv({
-                        PYTHONUNBUFFERED: "1",
-                    }),
+                    env: utils.activatedEnv(env),
                     cwd: workdir || nova.workspace.path,
                 });
             } else {
                 return new TaskProcessAction(pythonPath, {
                     args: ["-m", pythonModule, ...args],
-                    env: utils.activatedEnv({
-                        PYTHONUNBUFFERED: "1",
-                    }),
+                    env: utils.activatedEnv(env),
                     cwd: workdir || nova.workspace.path,
                 });
             }
