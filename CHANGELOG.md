@@ -1,3 +1,8 @@
+## Version 1.6.0
+
+* Added support for the [ty](https://docs.astral.sh/ty/) and [pyrefly](https://pyrefly.org) language servers
+
+
 ## Version 1.5.0 - 2025.11.22
 
 * Support for `autopep8` (#16)

@@ -1,5 +1,5 @@
 const Notification = require("Notification.js");
-const PyrightLanguageServer = require("PyrightLanguageServer.js");
+const LanguageServer = require("LanguageServer.js");
 const Formatter = require("Formatter.js");
 const Linter = require("Linter.js");
 const Config = require("Config.js");
@@ -15,7 +15,7 @@ const config = new Config("python");
 const pip = new Pip(config);
 
 // Components of the extension, each with activate/deactivate methods.
-const langserver = new PyrightLanguageServer(config);
+const langserver = new LanguageServer(config);
 const formatter = new Formatter(config);
 const linter = new Linter(config);
 const sidebar = new PackageSidebar(pip);
@@ -88,7 +88,7 @@ nova.commands.register("python.pipFreeze", (workspace) => {
     pip.freeze()
         .then((packages) => {
             let resolvedPackages = packages.filter(
-                (p) => !exclude.has(p.split("=")[0])
+                (p) => !exclude.has(p.split("=")[0]),
             );
             let file = nova.fs.open(path, "w");
             file.write(resolvedPackages.join("\n"));
@@ -110,13 +110,13 @@ nova.commands.register("python.pipInstall", (workspace) => {
             let packages = spec.split(" ").filter((e) => e.length > 0);
             let note = new Notification(
                 packages.join(", "),
-                "Installing Packages"
+                "Installing Packages",
             ).show();
             pip.install(packages).then(() => {
                 note.dismiss();
                 sidebar.refresh();
             });
-        }
+        },
     );
 });
 
@@ -128,13 +128,13 @@ nova.commands.register("python.pipUninstall", (workspace) => {
             let packages = spec.split(" ").filter((e) => e.length > 0);
             let note = new Notification(
                 packages.join(", "),
-                "Uninstalling Packages"
+                "Uninstalling Packages",
             ).show();
             pip.uninstall(packages).then(() => {
                 note.dismiss();
                 sidebar.refresh();
             });
-        }
+        },
     );
 });
 
@@ -170,8 +170,10 @@ nova.commands.register("python.uninstallSelectedPackages", (workspace) => {
     });
 });
 
-// Pyright
-nova.commands.register("python.restartPyright", (workspace) => langserver.start());
+// Language server
+nova.commands.register("python.restartLangServer", (workspace) => {
+    langserver.start();
+});
 
 // Formatting
 nova.commands.register("python.format", formatter.format, formatter);
@@ -180,10 +182,14 @@ nova.commands.register("python.formatWorkspace", formatter.formatWorkspace, form
 // Linting
 nova.commands.register("python.check", linter.manualCheck, linter);
 nova.commands.register("python.fix", linter.fix, linter);
-nova.commands.register("python.fixWorkspace", linter.fixWorkspace, linter)
+nova.commands.register("python.fixWorkspace", linter.fixWorkspace, linter);
 nova.commands.register("python.organizeImports", linter.organize, linter);
 nova.commands.register("python.organizeWorkspace", linter.organizeWorkspace, linter);
-nova.commands.register("python.fixOrganizeWorkspace", linter.fixOrganizeWorkspace, linter)
+nova.commands.register(
+    "python.fixOrganizeWorkspace",
+    linter.fixOrganizeWorkspace,
+    linter,
+);
 
 // Cleanup
 nova.commands.register("python.cleanWorkspace", (workspace) => {
@@ -201,7 +207,7 @@ nova.commands.register("python.cleanWorkspace", (workspace) => {
                     CLEAN_EXTRAS: cleanExtra.join(";"),
                 },
             },
-            workspace.path
+            workspace.path,
         )
         .then((result) => {
             for (const line of result.stdout) {

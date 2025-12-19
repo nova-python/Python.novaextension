@@ -56,7 +56,7 @@ class Pip {
 
     freeze() {
         if (this._useUV()) {
-            return utils.resolvePath(["uv"], null).then((uvPath) => {
+            return utils.resolvePath(["uv"]).then((uvPath) => {
                 return utils
                     .run(uvPath, "export", "--no-hashes", "--no-dev")
                     .then((result) => result.stdout.map((p) => p.trim()));
@@ -72,7 +72,7 @@ class Pip {
     list() {
         if (this._useUV()) {
             // TODO: allow setting uv path in config
-            return utils.resolvePath(["uv"], null).then((uvPath) => {
+            return utils.resolvePath(["uv"]).then((uvPath) => {
                 return utils
                     .run(uvPath, "pip", "list", "--format", "json")
                     .then((result) => JSON.parse(result.stdout.join("")));
@@ -93,7 +93,7 @@ class Pip {
 
     outdated() {
         if (this._useUV()) {
-            return utils.resolvePath(["uv"], null).then((uvPath) => {
+            return utils.resolvePath(["uv"]).then((uvPath) => {
                 return utils
                     .run(uvPath, "pip", "list", "--outdated", "--format", "json")
                     .then((result) => {
@@ -132,7 +132,7 @@ class Pip {
         let pipAuditPath = this.config.get("pipAuditPath", "string");
         if (this._useUV()) {
             return utils.resolvePath(["pip-audit"], pipAuditPath).then((auditPath) => {
-                return utils.resolvePath(["uv"], null).then((uvPath) => {
+                return utils.resolvePath(["uv"]).then((uvPath) => {
                     let tmpRequirements = nova.path.join(
                         nova.fs.tempdir,
                         "requirements.txt"

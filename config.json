@@ -16,23 +16,26 @@
     },
     {
         "type": "section",
-        "title": "Language Server (Pyright)",
-        "link": "https://microsoft.github.io/pyright/#/settings",
+        "title": "Language Server",
         "children": [
             {
-                "key": "python.pyrightPath",
-                "title": "Executable",
-                "description": "Path to the pyright-langserver executable.",
-                "type": "path",
-                "placeholder": "/opt/homebrew/bin/pyright-langserver"
+                "key": "python.langServer",
+                "title": "Language Server",
+                "description": "Which language server to prefer by default.",
+                "type": "enum",
+                "values": [
+                    ["pyright-langserver", "Pyright"],
+                    ["pyrefly", "Pyrefly"],
+                    ["ty", "ty"]
+                ],
+                "default": "pyright-langserver"
             },
             {
-                "key": "python.analysis.stubPath",
-                "title": "Stub path",
-                "description": "Optional. A folder to look for type stubs in.",
+                "key": "python.langServerPath",
+                "title": "Executable",
+                "description": "Path to the language server executable.",
                 "type": "path",
-                "allowFiles": false,
-                "allowFolders": true
+                "placeholder": "(auto)"
             }
         ]
     },

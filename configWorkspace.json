@@ -14,68 +14,33 @@
     },
     {
         "type": "section",
-        "title": "Language Server (Pyright)",
-        "link": "https://microsoft.github.io/pyright/#/settings",
+        "title": "Language Server",
         "children": [
             {
-                "key": "python.pyrightEnabled",
+                "key": "python.langServerEnabled",
                 "title": "Enable language server",
-                "description": "Whether to enable language server integration for this project.",
+                "description": "Whether to enable the configured language server for this project.",
                 "type": "boolean",
                 "default": true
             },
             {
-                "key": "python.analysis.typeCheckingMode",
-                "title": "Type checking mode",
-                "description": "How much type checking you want to do.",
+                "key": "python.langServer",
+                "title": "Language Server",
+                "description": "Which language server to prefer by default.",
                 "type": "enum",
                 "values": [
-                    ["off", "Off"],
-                    ["basic", "Basic"],
-                    ["strict", "Strict"]
+                    ["pyright-langserver", "Pyright"],
+                    ["pyrefly", "Pyrefly"],
+                    ["ty", "ty"]
                 ],
-                "default": "basic"
+                "default": "pyright-langserver"
             },
             {
-                "key": "python.analysis.diagnosticMode",
-                "title": "Diagnostic mode",
-                "description": "Whether to report issues for all files in the workspace, or open files only.",
-                "type": "enum",
-                "values": [
-                    ["openFilesOnly", "Open files only"],
-                    ["workspace", "All files in workspace"]
-                ],
-                "default": "openFilesOnly"
-            },
-            {
-                "key": "pyright.disableTaggedHints",
-                "title": "Disable tagged hints",
-                "description": "Disables the use of hint diagnostics with special tags (for example: `x is not accessed`)",
-                "type": "boolean",
-                "default": false
-            },
-            {
-                "key": "python.pyrightPath",
+                "key": "python.langServerPath",
                 "title": "Executable",
-                "description": "Leave blank to use the extension default.",
+                "description": "Path to the language server executable.",
                 "type": "path",
-                "placeholder": "(default)"
-            },
-            {
-                "key": "python.analysis.stubPath",
-                "title": "Stub path",
-                "description": "A folder to look for type stubs in. Leave blank to use the extension default.",
-                "type": "path",
-                "allowFiles": false,
-                "allowFolders": true
-            },
-            {
-                "key": "python.analysis.extraPaths",
-                "title": "Extra paths",
-                "description": "Additional paths to include in analysis.",
-                "type": "pathArray",
-                "allowFiles": false,
-                "allowFolders": true
+                "placeholder": "(auto)"
             }
         ]
     },
