@@ -1,4 +1,4 @@
-## Version 1.6.0
+## Version 1.6.0 - 2025.12.19
 
 * Added support for the [ty](https://docs.astral.sh/ty/) and [pyrefly](https://pyrefly.org) language servers
 
