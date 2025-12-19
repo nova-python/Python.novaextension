@@ -79,8 +79,8 @@
         ],
         "extensions": [
             {
-                "title": "Restart Pyright",
-                "command": "python.restartPyright"
+                "title": "Restart Language Server",
+                "command": "python.restartLangServer"
             },
             {
                 "title": "Freeze Requirements",

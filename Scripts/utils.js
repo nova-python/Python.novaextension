@@ -113,7 +113,7 @@ function first(promises) {
     });
 }
 
-exports.resolvePath = function (cmds, configPath) {
+exports.resolvePath = function (cmds, configPath = null) {
     if (configPath) {
         return Promise.resolve(configPath);
     }
