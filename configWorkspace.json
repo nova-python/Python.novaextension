@@ -21,7 +21,7 @@
                 "title": "Enable language server",
                 "description": "Whether to enable the configured language server for this project.",
                 "type": "boolean",
-                "default": false
+                "default": true
             },
             {
                 "key": "python.langServer",
