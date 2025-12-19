@@ -48,7 +48,7 @@ class LanguageServer {
             return;
         }
 
-        const whichLS = this.config.get("langServer", "string", "ty");
+        const whichLS = this.config.get("langServer", "string", "pyright-langserver");
         const lsPath = this.config.get("langServerPath", "string");
         utils.resolvePath([whichLS], lsPath).then((path) => {
             console.info("Found language server:", path);

@@ -24,11 +24,11 @@
                 "description": "Which language server to prefer by default.",
                 "type": "enum",
                 "values": [
-                    ["ty", "ty"],
                     ["pyright-langserver", "Pyright"],
-                    ["pyrefly", "Pyrefly"]
+                    ["pyrefly", "Pyrefly"],
+                    ["ty", "ty"]
                 ],
-                "default": "ty"
+                "default": "pyright-langserver"
             },
             {
                 "key": "python.langServerPath",
