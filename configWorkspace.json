@@ -32,8 +32,7 @@
                     ["pyright-langserver", "Pyright"],
                     ["pyrefly", "Pyrefly"],
                     ["ty", "ty"]
-                ],
-                "default": "pyright-langserver"
+                ]
             },
             {
                 "key": "python.langServerPath",
@@ -60,8 +59,7 @@
                 "key": "python.formatterArgs",
                 "title": "Additional Arguments",
                 "description": "The --quiet option is always set. The --stdin-filename option is set when a filename is available.",
-                "type": "stringArray",
-                "default": null
+                "type": "stringArray"
             },
             {
                 "key": "python.formatOnSave",
