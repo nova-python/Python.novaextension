@@ -31,11 +31,29 @@ This extension will try to find tools installed on your `PATH`, so installing in
 
 ## Language Server Configuration
 
-Selecting which language server to use can be done in Nova's extension and project settings dialogs. Further editor configuration for each language server is done by editing `.nova/Configuration.json` directly. See the following documentaion for available settings:
+Selecting which language server to use can be done in Nova's extension and project settings dialogs.
+
+Further configuration is done by writing the specific settings defined by each language server directly into `.nova/Configuration.json`. See the following documentaion for available settings:
 
 * [Pyright settings](https://microsoft.github.io/pyright/#/settings)
 * [Pyrefly settings](https://pyrefly.org/en/docs/IDE/#customization)
 * [ty settings](https://docs.astral.sh/ty/reference/editor-settings/)
+
+For example : 
+
+```json
+{
+  "python.langServer" : "pyright",
+  "python.analysis.diagnosticMode": "workspace"
+}
+```
+
+```json
+{
+  "python.langServer" : "ty",
+  "ty.configurationFile": "\/Users\/johndoe\/.config\/ty.toml"
+}
+```
 
 **Note**: _Previous versions allowed setting certain Pyright-specific settings through the UI. These UI options have been removed since settings differ greatly between language servers._
 
