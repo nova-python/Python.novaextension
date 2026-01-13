@@ -115,7 +115,7 @@ function first(promises) {
 
 exports.resolvePath = function (cmds, configPath = null) {
     if (configPath) {
-        return Promise.resolve(configPath);
+        return Promise.resolve(nova.path.expanduser(configPath));
     }
     return first(cmds.map((cmd) => exports.which(cmd)));
 };

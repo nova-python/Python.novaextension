@@ -1,3 +1,9 @@
+## Version 1.6.1 - 2026.01.13
+
+* Expand `~` in executable paths (#19)
+* Respect global language server selection (#22) and updated README (#21) - thanks @guillaumealgis!
+
+
 ## Version 1.6.0 - 2025.12.19
 
 * Added support for the [ty](https://docs.astral.sh/ty/) and [pyrefly](https://pyrefly.org) language servers
@@ -5,7 +11,7 @@
 
 ## Version 1.5.0 - 2025.11.22
 
-* Support for `autopep8` (#16)
+* Support for `autopep8` (#16) - thanks @kra-mo!
 * Allow setting environment variables for Virtual Environment tasks (#15)
 
 
