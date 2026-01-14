@@ -61,9 +61,10 @@ nova.commands.register("python.resolveEnvs", (workspace) => {
 
     if (!venvDirs) return [];
 
-    for (const dir of venvDirs) {
+    for (let dir of venvDirs) {
+        dir = nova.path.expanduser(dir);
         for (const item of nova.fs.listdir(dir)) {
-            let venvDir = nova.path.expanduser(nova.path.join(dir, item));
+            let venvDir = nova.path.join(dir, item);
             promises.push(utils.checkEnv(venvDir));
         }
     }
